@@ -2,8 +2,141 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="externals/deckjs/core/deck.core.css">
+    <link rel="stylesheet" href="externals/deckjs/extensions/navigation/deck.navigation.css">
+    <link rel="stylesheet" href="externals/deckjs/extensions/goto/deck.goto.css">
+    <link rel="stylesheet" href="externals/deckjs/extensions/hash/deck.hash.css">
+    <link rel="stylesheet" href="externals/deckjs/themes/style/neon.css">
+    <link rel="stylesheet" href="externals/deckjs/themes/transition/horizontal-slide.css">
 
+ <style>
+    body {
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+    }
+    .deck-container .slide h1 {
+        text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+    }
+    .deck-container .slide h2 {
+        color: #2d60b5;
+        border-bottom-color: #bada55;
+    }
+    .slide p, .slide li {
+        font-size: 150%;
+    }
+    .subtle {
+        color: #666;
+    }
+    .slide em.subtle {
+        font-size: 50%;
+    }
+    ul.authors {
+        position: absolute;
+        top: 80%;
+    }
+    ul.authors li {
+        list-style: none;
+        font-size: 1.25em;
+        font-weight: bold;
+    }
+    div.caption {
+        font-size: 2.25em;
+        text-align: center;
+    }
 
+    section.slide .split{
+        width: 40%;
+        padding: 2% 4%;
+        position: relative;
+        top: 0;
+        left: 0;
+        float: left;
+    }
+
+    .split:nth-child(2n+1){
+        float: right;
+    }
+    
+    .slide img.olTileImage {
+        margin: 0;
+        max-width: inherit;
+    }
+    div.caption {
+        font-size: 2.25em;
+        text-align: center;
+    }
+
+    pre{
+        color: #bada55;
+    }
+
+    .olControlAttribution {
+        bottom: 3px;
+    }
+    </style>
+
+  <script src="externals/deckjs/modernizr.custom.js"></script>
 </head>
+
+<body class="deck-container">
+
+
+   <div class="slide" id="frontpage">
+       <h1>Real Time Analytics with Akka & MongoDB</h1>
+      <h2>Tech Talk</h2>
+       <ul class="authors">
+           <li>Juan Marin<br>January 2013</li>
+       </ul>
+   </div>
+
+  <section class="slide" id="whats-real-time">
+      <h1>What is real time?</h1>
+  </section>
+
+  
+  <section class="slide" id="its-relative">
+      <h1>It's all relative</h1>
+  </section>
+
+
+  <section class="slide" id="realtime-agree">
+      <h3>But we can probably agree:</h3>
+      <p class="subtle">
+      <ul>
+        <li>Reactive</li>
+	<li>Operational deadlines --> available "soon"</li>
+	<li>Order of magnitude ~ milliseconds</li>
+      </ul>
+      </p>
+  </section>  
+
+  <section class="slide" id="be-fast">
+      <h1 style="position:absolute;top:20%">Being fast is important</h1>
+      <img style="position:absolute;top:50%;left:30%" src="img/shark_attack.jpg"/>
+  </section>
+
+
+
+  <form action="." method="get" class="goto-form">
+       <label for="goto-slide">Go to slide:</label>
+
+       <input type="number" name="slidenum" id="goto-slide">
+       <input type="submit" value="Go">
+  </form>
+
+
+<script src="externals/deckjs/jquery-1.7.2.min.js"></script>
+<script src="externals/deckjs/core/deck.core.js"></script>
+<script src="externals/deckjs/extensions/navigation/deck.navigation.js"></script>
+<script src="externals/deckjs/extensions/goto/deck.goto.js"></script>
+<script src="externals/deckjs/extensions/hash/deck.hash.js"></script>
+
+<script>
+    $(function() {
+        $.deck(".slide");
+    });
+
+</script>
+
+</body>
 
 </html>
