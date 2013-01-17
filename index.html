@@ -106,7 +106,7 @@
     }
 
     pre{
-        color: #bada55;
+        color: #0099ff;
     }
 
     .olControlAttribution {
@@ -234,14 +234,195 @@
   </section>
 
 
-  <section class="slide" id="">
+  <section class="slide" id="akka">
     <img style="position:absolute;top:10%;left:40%" src="img/akka_logo.png"/>
     <h3 style="position:absolute;top:40%;text-align:center">Akka is a toolkit and runtime for building highly concurrent, distributed, and fault tolerant event-driven applications on the JVM</h3>
+  </section>
+
+  <section class="slide" id="concurrency">
+    <h1 style="position:absolute;top:10%">Concurrency</h1>
+    <img style="position:absolute;top:30%;left:35%" src="img/smith_many.jpeg"/>
+    <h3 style="position:absolute;top:50%;left:38%">Hard to deal with</h3>
+
+  </section>
+
+  <section class="slide" id="actors">
+    <h1 style="position:absolute;top:10%">Akka has actors</h1>
+    <img style="position:absolute;top:20%;left:35%" src="img/clooney.jpeg"/>
+    <h3 style="position:absolute;top:50%;left:35%">Actors are cool</h3>
+  </section>
+
+  <section class="slide" id="akka-actors">
+    <h1 style="position:absolute;top:10%">Akka Actors</h1>
+    <h3 style="position:absolute;top:20%">Actors are objects which encapsulate state and behavior, they communicate exclusively by exchanging messages which are placed into the recipient's mailbox</h3>
+    
+    <pre style="position:absolute;top:40%;left:20%;font-size:0.5em;">
+      public class Greeting implements Serializable {
+        public final String who;
+        public Greeting(String who) { this.who = who; }
+      }
+      
+      public class GreetingActor extends UntypedActor {
+        LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+      
+        public void onReceive(Object message) throws Exception {
+          if (message instanceof Greeting)
+            log.info("Hello " + ((Greeting) message).who);
+        }
+      }
+      
+      ActorSystem system = ActorSystem.create("MySystem");
+      ActorRef greeter = system.actorOf(new Props(GreetingActor.class), "greeter");
+      greeter.tell(new Greeting("Charlie Parker"));</pre>
+
+
+  </section>
+
+  <section class="slide" id="actors-scala">
+    <h1 style="position:absolute;top:10%">In Scala too (*)</h1>
+    <img style="position:absolute;top:20%;left:30%" src="img/scala_logo.jpeg"/>
+    <pre style="position:absolute;top:30%;left:20%;font-size:0.5em">
+      case class Greeting(who: String)
+      
+      class GreetingActor extends Actor with ActorLogging {
+        def receive = {
+          case Greeting(who) ⇒ log.info("Hello " + who)
+        }
+      }
+      
+      val system = ActorSystem("MySystem")
+      val greeter = system.actorOf(Props[GreetingActor], name = "greeter")
+      greeter ! Greeting("Charlie Parker")
+
+    </pre>
+    <h3 style="position:absolute;top:60%;left:10%">(*) Which is the language you should be using for this stuff</h3>
+    
+  </section>
+
+  <section class="slide" id="why-actors">
+    <h1 style="position:absolute;top:20%">Why Actors?</h1>
+    <h3 style="position:absolute;top:40%;left:15%;text-align:center">Message passing style concurrency<br>Asynchronous, event driven programming model</h3>
+    <p class="subtle" style="position:absolute;top:60%;left:15%;text-align:center;">Oh, and they are tiny (2.7 million / GB of RAM)</p>  
+  </section>
+
+  <section class="slide" id="akka-distributed">
+    <h1 style="position:absolute;top:20%">Akka is distributed</h1>
+    <h3 style="position:absolute;top:30%;left:10%;text-align:center">Location Transparency<br>Designed for distribution, local deployment is an optimization</h3>
+    <pre style="position:absolute;top:50%;left:20%;font-size:0.5em">
+    akka {
+      actor {
+        provider = "akka.remote.RemoteActorRefProvider"
+      }
+      remote {
+        transport = "akka.remote.netty.NettyRemoteTransport"
+        netty {
+          hostname = "127.0.0.1"
+          port = 2552
+        }
+      }
+   }
+    </pre>
+  </section>
+
+  <section class="slide" id="let-it-crash">
+    <h1 style="position:absolute;top:10%">Let it Crash</h1>
+    <img style="position:absolute;top:25%;left:20%" src="img/koshinage.jpg"/>
+    <p class="subtle" style="position:absolute;top:80%;left:25%;text-align:center;font-size:0.75em">By the way, this Aikido technique is called Koshinage</p>  
+  </section>
+
+  <section class="slide" id="fault-tolerance">
+    <h1 style="position:absolute;top:20%">Fault Tolerance</h1>
+    <h3 style="position:absolute;top:30%;text-align:center"><b>Supervision Hierarchy</b> --> Every actor has a parent. Parents take care of children, do something when they misbehave (stop, restart, etc.)<br>Encourage few top level actors (dhildren of ActorSystem), create your own actors as children of other actors</h3>
+  </section>
+
+  <section class="slide" id="futures">
+    <h1 style="position:absolute;top:10%">Futures</h1>
+    <img style="position:absolute;top:25%;left:25%" src="img/futures.jpg"/>
+  </section>
+
+  <section class="slide" id="akka-futures">
+    <h1 style="position:absolute;top:20%">Akka Futures</h1>
+    <h3 style="position:absolute;top:30%;text-align:center">"Data structures to retrieve the result of a concurrent operation. Results can be retrieved synchronously or asynchronously"<br>Higher abstraction than Java Futures, but uses java.util.concurrency under the hood<br>This is where you really want to use Scala<br>Seriously</h3>
+  </section>
+
+  <section class="slide" id="future-composition">
+    <h1 style="position:absolute;top:20%">Futures compose</h1>
+    <pre style="position:absolute;top:30%;left:20%;font-size:0.5em">
+      List&lt;Future&lt;List&lt;RequestStats&gt;&gt;&gt; futures = new ArrayList&lt;Future&lt;List&lt;RequestStats&gt;&gt;&gt;();
+      ExecutionContext ec = getContext().system().dispatcher();
+      futures.add(future(new ServiceStatsProcessor(payload), ec));
+      futures.add(future(new LayerStatsProcessor(payload), ec));
+      futures.add(future(new GeoStatsProcessor(payload), ec));
+      futures.add(future(new ReferrerProcessor(payload), ec));
+      futures.add(future(new IpStatsProcessor(payload), ec));
+
+      // compose a sequence of the futures
+      Future&lt;Iterable&lt;List&lt;RequestStats&gt;&gt;&gt; futuresSequence = sequence(futures, ec);
+
+      // block until the futures come back
+      log.debug("Processing messages");
+      Iterable&lt;List&lt;RequestStats&gt;&gt; results = futuresSequence.result(
+         Duration.create(30, TimeUnit.SECONDS), null);
+      log.debug("Finished Processing messages");
+    </pre>		
+  </section>
+
+  <section class="slide" id="camel-integration">
+    <h1 style="position:absolute;top:20%">Apache Camel Integration</h1>
+    <pre style="position:absolute;top:40%;left:20%;font-size:0.5em">
+ public class HttpConsumer extends UntypedConsumerActor implements Consumer {
+    @Override
+    public void onReceive(Object obj) throws Exception {
+        if (obj instanceof CamelMessage) {
+            CamelMessage camelMessage = (CamelMessage) obj;
+            String json = camelMessage.withBodyAs(String.class, getCamelContext())
+                    .body()
+                    .toString();
+            Payload payload = mapper.readValue(json, Payload.class);
+            if (!messageValidator.isValid(payload))
+                throw new Exception("Payload is not valid");
+            log.debug("Message received and validated: " + payload);
+            getContext().system().eventStream().publish(payload);
+            getSender().tell("OK", getSelf());
+        }
+    }
+}
+    </pre>  
+  </section>
+
+  <section class="slide" id="mongodb">
 
   </section>
 
   <section class="slide" id="">
 
+  </section>
+
+  <section class="slide" id="">
+
+  </section>
+
+  <section class="slide" id="">
+
+  </section>
+
+  <section class="slide" id="">
+
+  </section>
+
+  <section class="slide" id="">
+
+  </section>
+
+  <section class="slide" id="">
+
+  </section>
+
+  <section class="slide" id="">
+
+  </section>
+
+  <section class="slide" id="">
 
   </section>
 
