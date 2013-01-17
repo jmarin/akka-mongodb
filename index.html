@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="externals/deckjs/extensions/navigation/deck.navigation.css">
     <link rel="stylesheet" href="externals/deckjs/extensions/goto/deck.goto.css">
     <link rel="stylesheet" href="externals/deckjs/extensions/hash/deck.hash.css">
-    <link rel="stylesheet" href="externals/deckjs/themes/style/neon.css">
     <link rel="stylesheet" href="externals/deckjs/themes/transition/horizontal-slide.css">
 
  <style>
@@ -32,6 +31,7 @@
     ul.authors {
         position: absolute;
         top: 80%;
+        left: 40%;
     }
     ul.authors li {
         list-style: none;
@@ -67,6 +67,7 @@
 
     pre{
         color: #0099ff;
+        font-size:0.75em;
     }
 
     .olControlAttribution {
@@ -216,7 +217,7 @@
     <h1 style="position:absolute;top:10%">Akka Actors</h1>
     <h3 style="position:absolute;top:20%">Actors are objects which encapsulate state and behavior, they communicate exclusively by exchanging messages which are placed into the recipient's mailbox</h3>
     
-    <pre style="position:absolute;top:40%;left:20%;font-size:0.5em;">
+    <pre style="position:absolute;top:40%;left:20%;">
       public class Greeting implements Serializable {
         public final String who;
         public Greeting(String who) { this.who = who; }
@@ -241,7 +242,7 @@
   <section class="slide" id="actors-scala">
     <h1 style="position:absolute;top:10%">In Scala too (*)</h1>
     <img style="position:absolute;top:20%;left:30%" src="img/scala_logo.jpeg"/>
-    <pre style="position:absolute;top:30%;left:20%;font-size:0.5em">
+    <pre style="position:absolute;top:30%;left:20%;">
       case class Greeting(who: String)
       
       class GreetingActor extends Actor with ActorLogging {
@@ -255,7 +256,7 @@
       greeter ! Greeting("Charlie Parker")
 
     </pre>
-    <h3 style="position:absolute;top:60%;left:10%">(*) Which is the language you should be using for this stuff</h3>
+    <h3 style="position:absolute;top:65%;left:20%">(*) Which is the language you should be using for this stuff</h3>
     
   </section>
 
@@ -351,19 +352,123 @@
   </section>
 
   <section class="slide" id="mongodb">
-
+    <p style="position:absolute;top:10px;"><h1 style="position:relative;top:300px;">Storage</h1><br><img style="position:relative;top:200px;" src="img/mongodb_logo.png"></p>
   </section>
 
-  <section class="slide" id="">
-
+  <section class="slide" id="mongodb-features">
+    <div style="position:relative;top:50px;left:5%">
+      <h3>Some nice features:</h3>
+      <p class="subtle">
+      <ul>
+        <li>Document-oriented storage, flexible schemas (NoSQL)</li>
+	<li>Very fast performance (less consistent than a RDBMS)</li>
+	<li>Replication and High Availability</li>
+	<li>Auto-Sharding: "easy" to scale horizontally on cheap hardware</li>
+	<li>Map/Reduce: very powerful analysis and aggregation capabilities</li>
+	<li>Some Geospatial support (pretty crude vs. PostGIS, but improving)</li>
+	<li><h3>Fast In-Place Updates</h3></li>
+      </ul>
+      </p>
+    </div>
   </section>
 
-  <section class="slide" id="">
 
+  <section class="slide" id="mongodb-raw-document">
+    <h3 style="position:relative;top:20px;">Let's take a look at this document</h3>
+    <pre style="position:relative;top:50px;font-size:0.5em">
+      > db.message.find().limit(1).next()
+{
+      "_id" : ObjectId("50f56c09a0ee0faee89ac02e"),
+      "id" : 1,
+      "url" : "/sf/wms?REQUEST=GetFeatureInfo&EXCEPTIONS=application/vnd.ogc.se_xml&BBOX=580603.926345,4908503.524255,617593.971633,4932489.256747&SERVICE=WMS&INFO_FORMAT=text/html&QUERY_LAYERS=sf:archsites&FEATURE_COUNT=50&Layers=sf:archsites&WIDTH=512&HEIGHT=332&format=image/png&styles=&srs=EPSG:26713&version=1.1.1&x=303&y=211",
+      "http_referer" : "http://console.dev.opengeo.org/geoserver/sf/wms?service=WMS&version=1.1.0&request=GetMap&layers=sf:archsites&styles=&bbox=589851.4376666048,4914490.882968263,608346.4603107043,4926501.8980334345&width=512&height=332&srs=EPSG:26713&format=application/openlayers",
+      "request_method" : "GET",
+      "request_length" : 0,
+      "request_content_type" : null,
+      "response_status" : 200,
+      "response_length" : 938,
+      "response_content_type" : "text/html",
+      "category" : "OWS",
+      "service" : "WMS",
+      "operation" : "GetFeatureInfo",
+      "sub_operation" : null,
+      "ows_version" : "1.1.1",
+      "start_time" : 1353026628,
+      "duration" : 652,
+      "server_host" : "console.dev.opengeo.org",
+      "internal_server_host" : "console",
+      "remote_address" : "208.120.178.170",
+      "remote_host" : "user-387hcla.cable.mindspring.com",
+      "remote_user_agent" : "Mozilla/5.0 (X11; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0",
+      "remote_user" : null,
+      "remote_longitude" : -73.9319000244141,
+      "remote_latitude" : 40.7610931396484,
+      "bbox" : null,
+      "error" : null,
+      "resources" : [ ],
+      "mem_usage" : -1,
+      "mem_total" : -1,
+      "load" : -1,
+      "date" : ISODate("2012-11-16T00:43:48Z"),
+      "api_key" : "opengeo_demo"
+}
+
+    </pre>
   </section>
 
-  <section class="slide" id="">
+  <section class="slide" id="mongodb-aggregate-document">
+    <h3 style="position:relative;top:20px;">We can aggregate them this way</h3>
+    <pre style="position:relative;top:50px;font-size:0.5em">
+      > db.request_hour.find().limit(1).next()
+      {
+          "_id" : "opengeo_demo_1353024000",
+          "api_key" : "opengeo_demo",
+          "date" : NumberLong(1353024000),
+          "error_count" : 0,
+          "ip" : {
+              "208_120_178_170" : {
+              "error_count" : 0,
+              "request_count" : 7,
+              "response_size" : 6489,
+              "response_time" : 1946
+	  }
+	  },
+          "location" : {
+              "dr5r" : {
+	      "request_count" : 7,
+	      "request_error" : 0,
+	      "response_size" : 6489,
+	      "response_time" : 1946
+	  }
+	  },
+	  "referrer" : {
+	      "console_dev_opengeo_org" : {
+	      "error_count" : 0,
+	      "request_count" : 7,
+	      "response_size" : 6489,
+	      "response_time" : 1946
+	  }
+	  },
+	  "request_count" : 7,
+	  "response_size" : 6489,
+	  "response_time" : 1946,
+	  "service" : {
+	      "wms" : {
+	          "error_count" : 0,
+		  "request_count" : 7,
+		  "response_size" : 6489,
+		  "response_time" : 1946
+	       }
+	  }
+      }
+    </pre>
+  </section>
 
+  <section class="slide" id="mongodb-query">
+    <h3 style="position:relative;top:20px;">So that queries become this easy</h3>
+    <pre style="position:relative;top:50px;font-size:0.5em">
+      
+    </pre>
   </section>
 
   <section class="slide" id="">
