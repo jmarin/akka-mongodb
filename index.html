@@ -118,9 +118,9 @@
   <script src="externals/deckjs/modernizr.custom.js"></script>
 </head>
 
-<body class="deck-container">
+<body>
 
-
+<article class="deck-container">
    <div class="slide" id="frontpage">
        <h1>Real Time Analytics with Akka & MongoDB</h1>
       <h2>Tech Talk</h2>
@@ -132,13 +132,10 @@
   <section class="slide" id="whats-real-time">
       <h1>What is real time?</h1>
   </section>
-
   
   <section class="slide" id="its-relative">
-      <h1 style="position:absolute;top:15%;">It's all relative</h1>
-      <img style="position:absolute;top:30%;left:5%;" src="img/back_to_future.jpg">	
+      <h1>It's all relative<br><img style="position:relative;top:100px;" src="img/back_to_future.jpg"</h1>
   </section>
-
 
   <section class="slide" id="realtime-agree">
     <div style="position:relative;top:250px;left:10%">
@@ -154,21 +151,22 @@
   </section>  
 
   <section class="slide" id="be-fast">
-      <h1 style="position:absolute;top:20%">Being fast is important</h1>
-      <img style="position:absolute;top:50%;left:30%" src="img/shark_attack.jpg"/>
+      <h1>Being fast is important<img style="position:relative;top:100px;" src="img/shark_attack.jpg"/></h1>     
   </section>
 
   <section class="slide" id="big-data">
     <div>
-      <h1>Big Data Analytics</h1>
-      <h3 style="position:relative;top:520px;left:15%;">I had to write that because it sounds cool</h3>
+      <div>
+      <h1 style="position:relative;top:400px;">Big Data Analytics</h1>
+      <h3 style="position:relative;top:402px;text-align:center">I had to write that because it sounds cool</h3>
+      </div>
     </div>
   </section>
 
-
   <section class="slide" id="but-seriously">
-    <h1 style="position:absolute;top:20%;">But seriously...</h1>
-    <div style="position:relative;top:250px;left:5%">
+   <div>
+    <h1 style="position:relative;top:100px;">But seriously...</h1>
+    <div style="position:relative;top:150px;text-align:left">
       <p class="subtle">
       <ul>
         <li>90% of total data volume in the history of mankind has been produced in the last 2 years</li>
@@ -177,18 +175,20 @@
       </ul>
       </p>
     </div>
+   </div>
   </section>  
 
-
   <section class="slide" id="sdss">
+    <h1 style="position:relative;top:100px;">Big Data</h1>
     <div style="position:absolute;top:20%;>"<p class="subtle">
-      <h4>When the Sloan Digital Sky Survey (SDSS) began collecting astronomical data in 200, it collected more information in the first weeks of operation than in the whole history of astronomy. Total amount ~ 140TB</h4>
+      <h3>When the Sloan Digital Sky Survey (SDSS) began collecting astronomical data in 2000, it collected more information in the first weeks of operation than in the whole history of astronomy. Total amount ~ 140TB</h3>
     </p>
     </div>
-    <img style="position:absolute;top:45%;left:35%" src="img/orangespider.thumb.jpg"/>				    
+    <img style="position:absolute;top:35%;left:35%" src="img/orangespider.thumb.jpg"/>				    
   </section>
 
   <section class="slide" id="lsst">
+    <h1 style="position:relative;top:100px;">Bigger Data</h1>
     <div style="position:absolute;top:20%;>"<p class="subtle">
       <h4>When the Large Synoptic Survey Telescope (LSST), successor to SDSS, comes online in 2016 it is anticipated to acquire that amount of data every 5 days</h4>
     </p>
@@ -198,7 +198,7 @@
   </section>
 
   <section class="slide" id="big-data-geo">
-    <h3 style="position:absolute;top:20%;">It happens in our field too</h3>
+    <h1 style="position:absolute;top:20%;">It happens in our field too</h1>
     <div style="position:relative;top:250px;left:5%">
       <p class="subtle">
 	<b>FCC's Broadband Map</b>, first 24 hours:
@@ -217,23 +217,21 @@
 
   <section class="slide" id="">
     <h1>How can we derive real time statistics from request data?</h1>
-
   </section>
 
   <section class="slide" id="">
     <h1 style="position:absolute;top:100px;">We will need:</h1>
-    <div style="position:relative;top:120px;">
+    <div style="position:relative;top:130px;left:170px;">
      <p class="subtle"> 
       <ul>
         <li>A fast way to persist raw request data for further analysis</li>
         <li>A fast way to process (aggregate) the incoming stream of data</li>
         <li>A fast way to query and deliver information, both historic and real time</li>
       </ul>
-      <h3>Akka and MongoDB is a possible solution</h3>
+      <h3 style="position:relative;left:125px;">Akka and MongoDB is a possible solution</h3>
      </p> 
     </div> 
   </section>
-
 
   <section class="slide" id="akka">
     <img style="position:absolute;top:10%;left:40%" src="img/akka_logo.png"/>
@@ -241,23 +239,25 @@
   </section>
 
   <section class="slide" id="concurrency">
-    <h1 style="position:absolute;top:10%">Concurrency</h1>
-    <img style="position:absolute;top:30%;left:35%" src="img/smith_many.jpeg"/>
-    <h3 style="position:absolute;top:50%;left:38%">Hard to deal with</h3>
-
+    <div style="position:relative;top:100px;">
+    <h1 style="position:relative;top:200px;">Concurrency<img style="position:relative;top:50px;" src="img/smith_many.jpeg"/></h1>
+    <h3 style="position:relative;top:100px;text-align:center">Hard to deal with</h3>
+   </div>
   </section>
 
   <section class="slide" id="actors">
-    <h1 style="position:absolute;top:10%">Akka has actors</h1>
-    <img style="position:absolute;top:20%;left:35%" src="img/clooney.jpeg"/>
-    <h3 style="position:absolute;top:50%;left:35%">Actors are cool</h3>
+    <div style="position:relative;top:100px;">
+    <h1 style="position:relative;top:100px;">Akka has actors<img style="position:relative;top:50px;" src="img/clooney.jpeg"/></h1>
+    <h3 style="position:relative;top:50%;text-align:center">Actors are cool</h3>
+   </div>
   </section>
 
   <section class="slide" id="akka-actors">
-    <h1 style="position:absolute;top:10%">Akka Actors</h1>
-    <h3 style="position:absolute;top:20%">Actors are objects which encapsulate state and behavior, they communicate exclusively by exchanging messages which are placed into the recipient's mailbox</h3>
+    <div>
+    <h1 style="position:relative;top:100px">Akka Actors</h1>
+    <h3 style="position:relative;top:80px">Actors are objects which encapsulate state and behavior, they communicate exclusively by exchanging messages which are placed into the recipient's mailbox</h3>
     
-    <pre style="position:absolute;top:40%;left:20%;">
+    <pre style="position:relative;top:140px;">
       public class Greeting implements Serializable {
         public final String who;
         public Greeting(String who) { this.who = who; }
@@ -276,13 +276,12 @@
       ActorRef greeter = system.actorOf(new Props(GreetingActor.class), "greeter");
       greeter.tell(new Greeting("Charlie Parker"));</pre>
 
-
   </section>
 
   <section class="slide" id="actors-scala">
-    <h1 style="position:absolute;top:10%">In Scala too (*)</h1>
-    <img style="position:absolute;top:20%;left:30%" src="img/scala_logo.jpeg"/>
-    <pre style="position:absolute;top:30%;left:20%;">
+    <div>
+    <h1 style="position:relative;top:100px;">In Scala too (*)<img style="position:relative;top:20px;;" src="img/scala_logo.jpeg"/></h1>
+    <pre style="position:relative;top:30px;">
       case class Greeting(who: String)
       
       class GreetingActor extends Actor with ActorLogging {
@@ -296,20 +295,23 @@
       greeter ! Greeting("Charlie Parker")
 
     </pre>
-    <h3 style="position:absolute;top:65%;left:20%">(*) Which is the language you should be using for this stuff</h3>
-    
+    <h3 style="position:relative;top:65px;text-align:center">(*) Which is the language you should be using for this stuff</h3>
+    </div>
   </section>
 
   <section class="slide" id="why-actors">
-    <h1 style="position:absolute;top:20%">Why Actors?</h1>
-    <h3 style="position:absolute;top:40%;left:15%;text-align:center">Message passing style concurrency<br>Asynchronous, event driven programming model</h3>
-    <p class="subtle" style="position:absolute;top:60%;left:15%;text-align:center;">Oh, and they are tiny (2.7 million / GB of RAM)</p>  
+    <div style="position:relative;top:200px;">
+    <h1 style="position:relative;top:100px;">Why Actors?</h1>
+    <h3 style="position:relative;top:100px;;text-align:center">Message passing style concurrency<br>Asynchronous, event driven programming model</h3>
+    <p class="subtle" style="position:relative;top:160px;text-align:center;">Oh, and they are tiny (2.7 million / GB of RAM)</p>  
+    </div>
   </section>
 
   <section class="slide" id="akka-distributed">
-    <h1 style="position:absolute;top:20%">Akka is distributed</h1>
-    <h3 style="position:absolute;top:30%;left:10%;text-align:center">Location Transparency<br>Designed for distribution, local deployment is an optimization</h3>
-    <pre style="position:absolute;top:50%;left:20%;font-size:0.5em">
+    <div>
+    <h1 style="position:relative;top:100px;">Akka is distributed</h1>
+    <h3 style="position:relative;top:100px;;text-align:center">Location Transparency<br>Designed for distribution, local deployment is an optimization</h3>
+    <pre style="position:relative;top:150px;">
     akka {
       actor {
         provider = "akka.remote.RemoteActorRefProvider"
@@ -323,12 +325,15 @@
       }
    }
     </pre>
+  </div>
   </section>
 
   <section class="slide" id="let-it-crash">
-    <h1 style="position:absolute;top:10%">Let it Crash</h1>
-    <img style="position:absolute;top:25%;left:20%" src="img/koshinage.jpg"/>
-    <p class="subtle" style="position:absolute;top:80%;left:25%;text-align:center;font-size:0.75em">By the way, this Aikido technique is called Koshinage</p>  
+    <div>
+    <h1 style="position:relative;top:100px;">Let it Crash</h1>
+    <img style="position:relative;top:100px;" src="img/koshinage.jpg"/>
+    <p class="subtle" style="position:relative;top:100px;text-align:center;font-size:0.75em">By the way, this Aikido technique is called Koshinage</p>  
+  </div>
   </section>
 
   <section class="slide" id="fault-tolerance">
@@ -337,18 +342,23 @@
   </section>
 
   <section class="slide" id="futures">
-    <h1 style="position:absolute;top:10%">Futures</h1>
-    <img style="position:absolute;top:25%;left:25%" src="img/futures.jpg"/>
+    <div>
+    <h1 style="position:relative;top:100px;">Futures</h1>
+    <img style="position:relative;top:100px;" src="img/futures.jpg"/>
+    </div>
   </section>
 
   <section class="slide" id="akka-futures">
-    <h1 style="position:absolute;top:20%">Akka Futures</h1>
-    <h3 style="position:absolute;top:30%;text-align:center">"Data structures to retrieve the result of a concurrent operation. Results can be retrieved synchronously or asynchronously"<br>Higher abstraction than Java Futures, but uses java.util.concurrency under the hood<br>This is where you really want to use Scala<br>Seriously</h3>
+    <div>
+    <h1 style="position:relative;top:200px;">Akka Futures</h1>
+    <h3 style="position:relative;top:200px;;text-align:center">"Data structures to retrieve the result of a concurrent operation. Results can be retrieved synchronously or asynchronously"<br>Higher abstraction than Java Futures, but uses java.util.concurrency under the hood<br>This is where you really want to use Scala<br>Seriously</h3>
+    </div>
   </section>
 
   <section class="slide" id="future-composition">
-    <h1 style="position:absolute;top:20%">Futures compose</h1>
-    <pre style="position:absolute;top:30%;left:20%;font-size:0.5em">
+    <div>
+    <h1 style="position:relative;top:100px;">Futures compose</h1>
+    <pre style="position:relative;top:100px;">
       List&lt;Future&lt;List&lt;RequestStats&gt;&gt;&gt; futures = new ArrayList&lt;Future&lt;List&lt;RequestStats&gt;&gt;&gt;();
       ExecutionContext ec = getContext().system().dispatcher();
       futures.add(future(new ServiceStatsProcessor(payload), ec));
@@ -365,12 +375,14 @@
       Iterable&lt;List&lt;RequestStats&gt;&gt; results = futuresSequence.result(
          Duration.create(30, TimeUnit.SECONDS), null);
       log.debug("Finished Processing messages");
-    </pre>		
+    </pre>
+  </div>		
   </section>
 
   <section class="slide" id="camel-integration">
-    <h1 style="position:absolute;top:20%">Apache Camel Integration</h1>
-    <pre style="position:absolute;top:40%;left:20%;font-size:0.5em">
+    <div>
+    <h1 style="position:relative;top:100px;">Apache Camel Integration</h1>
+    <pre style="position:relative;top:50px;">
  public class HttpConsumer extends UntypedConsumerActor implements Consumer {
     @Override
     public void onReceive(Object obj) throws Exception {
@@ -389,15 +401,18 @@
     }
 }
     </pre>  
+  </div>
   </section>
 
   <section class="slide" id="mongodb">
-    <p style="position:absolute;top:10px;"><h1 style="position:relative;top:300px;">Storage</h1><br><img style="position:relative;top:200px;" src="img/mongodb_logo.png"></p>
+    <div style="position:relative;top:250px;">
+    <h1 style="position:relative;top:100px;">Storage</h1><img style="position:relative;top:50px;" src="img/mongodb_logo.png">
+    </div>
   </section>
 
   <section class="slide" id="mongodb-features">
-    <div style="position:relative;top:50px;left:5%">
-      <h3>Some nice features:</h3>
+    <div style="position:relative;top:250px;">
+      <h1 style="position:relative;top:50px;">Some nice features:</h1>
       <p class="subtle">
       <ul>
         <li>Document-oriented storage, flexible schemas (NoSQL)</li>
@@ -553,6 +568,7 @@
 
 </script>
 
+</article>
 </body>
 
 </html>
