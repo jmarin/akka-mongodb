@@ -1,4 +1,4 @@
 akka-mongodb
 ============
 
-Real Time Analytics with Akka &amp; MongoDB
+Presentation on Real Time Analytics with Akka &amp; MongoDB
