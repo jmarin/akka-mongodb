@@ -134,11 +134,13 @@
 
   
   <section class="slide" id="its-relative">
-      <h1>It's all relative</h1>
+      <h1 style="position:absolute;top:15%;">It's all relative</h1>
+      <img style="position:absolute;top:30%;left:5%;" src="img/back_to_future.jpg">	
   </section>
 
 
   <section class="slide" id="realtime-agree">
+    <div style="position:relative;top:250px;left:10%">
       <h3>But we can probably agree:</h3>
       <p class="subtle">
       <ul>
@@ -147,6 +149,7 @@
 	<li>Order of magnitude ~ milliseconds</li>
       </ul>
       </p>
+    </div>
   </section>  
 
   <section class="slide" id="be-fast">
@@ -154,6 +157,93 @@
       <img style="position:absolute;top:50%;left:30%" src="img/shark_attack.jpg"/>
   </section>
 
+  <section class="slide" id="big-data">
+    <div>
+      <h1>Big Data Analytics</h1>
+      <h3 style="position:relative;top:520px;left:15%;">I had to write that because it sounds cool</h3>
+    </div>
+  </section>
+
+
+  <section class="slide" id="but-seriously">
+    <h1 style="position:absolute;top:20%;">But seriously...</h1>
+    <div style="position:relative;top:250px;left:5%">
+      <p class="subtle">
+      <ul>
+        <li>90% of total data volume in the history of mankind has been produced in the last 2 years</li>
+	<li>As of late 2012, "Big Data" usually describes data sets from several dozen terabytes to petabytes</li>
+	<li>Guess What? A lot of that data is geospatial...</li>
+      </ul>
+      </p>
+    </div>
+  </section>  
+
+
+  <section class="slide" id="sdss">
+    <div style="position:absolute;top:20%;>"<p class="subtle">
+      <h4>When the Sloan Digital Sky Survey (SDSS) began collecting astronomical data in 200, it collected more information in the first weeks of operation than in the whole history of astronomy. Total amount ~ 140TB</h4>
+    </p>
+    </div>
+    <img style="position:absolute;top:45%;left:35%" src="img/orangespider.thumb.jpg"/>				    
+  </section>
+
+  <section class="slide" id="lsst">
+    <div style="position:absolute;top:20%;>"<p class="subtle">
+      <h4>When the Large Synoptic Survey Telescope (LSST), successor to SDSS, comes online in 2016 it is anticipated to acquire that amount of data every 5 days</h4>
+    </p>
+    </div>
+    <img style="position:absolute;top:40%;left:30%" src="img/lsst.jpg"/>
+
+  </section>
+
+  <section class="slide" id="big-data-geo">
+    <h3 style="position:absolute;top:20%;">It happens in our field too</h3>
+    <div style="position:relative;top:250px;left:5%">
+      <p class="subtle">
+	<b>FCC's Broadband Map</b>, first 24 hours:
+      <ul>
+        <li>Total hits:158,123,884</li>
+	<li>Hits served by cache: 141,068,348 (89.21%)</li>
+	<li>Total data transferred: 863 GB</li>
+	<li>Peak requests per second: 8,970</li>
+	<li>Average requests per second: 1,095</li>
+	<li>Unique visitors, first 10 hours: ~500,000</li>
+      </ul>
+      </p>
+    </div>
+
+  </section>
+
+  <section class="slide" id="">
+    <h1>How can we derive real time statistics from request data?</h1>
+
+  </section>
+
+  <section class="slide" id="">
+    <h1 style="position:absolute;top:100px;">We will need:</h1>
+    <div style="position:relative;top:120px;">
+     <p class="subtle"> 
+      <ul>
+        <li>A fast way to persist raw request data for further analysis</li>
+        <li>A fast way to process (aggregate) the incoming stream of data</li>
+        <li>A fast way to query and deliver information, both historic and real time</li>
+      </ul>
+      <h3>Akka and MongoDB is a possible solution</h3>
+     </p> 
+    </div> 
+  </section>
+
+
+  <section class="slide" id="">
+    <img style="position:absolute;top:10%;left:40%" src="img/akka_logo.png"/>
+    <h3 style="position:absolute;top:40%;text-align:center">Akka is a toolkit and runtime for building highly concurrent, distributed, and fault tolerant event-driven applications on the JVM</h3>
+
+  </section>
+
+  <section class="slide" id="">
+
+
+  </section>
 
 
   <form action="." method="get" class="goto-form">
