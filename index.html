@@ -389,8 +389,9 @@
 
 
   <section class="slide" id="mongodb-raw-document">
+    <div>
     <h3 style="position:relative;top:20px;">Let's take a look at this document</h3>
-    <pre style="position:relative;top:50px;font-size:0.5em">
+    <pre style="position:relative;top:50px;font-size:0.75em">
       > db.message.find().limit(1).next()
 {
       "_id" : ObjectId("50f56c09a0ee0faee89ac02e"),
@@ -429,11 +430,13 @@
 }
 
     </pre>
+   </div>
   </section>
 
   <section class="slide" id="mongodb-aggregate-document">
+   <div>
     <h3 style="position:relative;top:20px;">We can aggregate them this way</h3>
-    <pre style="position:relative;top:50px;font-size:0.5em">
+    <pre style="position:relative;top:50px;font-size:0.75em">
       > db.request_hour.find().limit(1).next()
       {
           "_id" : "opengeo_demo_1353024000",
@@ -477,35 +480,62 @@
 	  }
       }
     </pre>
+   </div>
   </section>
 
   <section class="slide" id="mongodb-query">
-    <h3 style="position:relative;top:20px;">So that queries become this easy</h3>
-    <pre style="position:relative;top:50px;font-size:0.5em">
-      
+    <h3 style="position:relative;top:200px;text-align:center">So that queries become this easy</h3>
+    <pre style="position:relative;top:250px;text-align:center">
+      db.request_hour.find({ "date" : { "$gte" : 1352980800 , "$lte" : 1353168000} , "api_key" : "opengeo_demo"})
     </pre>
   </section>
 
-  <section class="slide" id="">
+  <section class="slide" id="mongodb-upsert">
+   <div>
+    <h1 style="position:relative;top:140px;">All this is possible thanks to the Upsert with Increment operation</h1>
+    <pre style="position:relative;top:70px;">
+     db.request_hour.update(
+      {_id: "opengeo_demo_1234567890"},
+      { "$set" : { 
+              "date" : 1352911141 ,
+              "api_key" : "1234567890"} ,
+              "$inc" : { 
+                       "request_count" : 1 ,
+                       "error_count" : 0 , 
+                       "response_size" : 3826 , 
+                       "response_time" : 68 , 
+                       "service.wms.request_count" : 1 , 
+                       "service.wms.error_count" : 0 , 
+                       "service.wms.response_size" : 3826 , 
+                       "service.wms.response_time" : 68
+               }
+     }, 
+     { upsert: true } 
+    }
+    </pre>
+   </div>
+  </section>
 
+  <section class="slide" id="how-good">
+    <h1>So, how well does it work?</h1>
   </section>
 
   <section class="slide" id="">
-
+    <div>
+    <h1 style="position:relative;top:50px;">OpenGeo Console</h1>
+    <ul style="position:relative;top:15px;">
+     <li>1.5 million requests aggregated on the fly, in 1.5 months (OpenGeo Suite Demo Server)</li>
+     <li>Console Dev server is a VM with 2GB of RAM, hosting both the application and MongoDB</li>
+     <li>No optimizations to Akka or MongoDB deployment yet (but will be needed)</li>
+     <li>Very fast development (but we should have gone with Scala)</li>
+    </ul>
+    <img src="img/Console.png"
+    </div>
   </section>
 
-  <section class="slide" id="">
-
+  <section class="slide" id="questions">
+    <h1>Questions?</h1>
   </section>
-
-  <section class="slide" id="">
-
-  </section>
-
-  <section class="slide" id="">
-
-  </section>
-
 
   <form action="." method="get" class="goto-form">
        <label for="goto-slide">Go to slide:</label>
