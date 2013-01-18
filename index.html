@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="externals/deckjs/core/deck.core.css">
+    <link rel="stylesheet" href="externals/deckjs/extensions/navigation/deck.navigation.css">
+    <link rel="stylesheet" href="externals/deckjs/extensions/goto/deck.goto.css">
+    <link rel="stylesheet" href="externals/deckjs/extensions/hash/deck.hash.css">
+    <link rel="stylesheet" href="externals/deckjs/themes/transition/horizontal-slide.css">
+
+ <style>
+    body {
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+    }
+    .deck-container .slide h1 {
+        text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+    }
+    .deck-container .slide h2 {
+        color: #2d60b5;
+        border-bottom-color: #bada55;
+    }
+    .slide p, .slide li {
+        font-size: 150%;
+    }
+    .subtle {
+        color: #666;
+    }
+    .slide em.subtle {
+        font-size: 50%;
+    }
+    ul.authors {
+        position: absolute;
+        top: 80%;
+        left: 40%;
+    }
+    ul.authors li {
+        list-style: none;
+        font-size: 1.25em;
+        font-weight: bold;
+    }
+    div.caption {
+        font-size: 2.25em;
+        text-align: center;
+    }
+
+    section.slide .split{
+        width: 40%;
+        padding: 2% 4%;
+        position: relative;
+        top: 0;
+        left: 0;
+        float: left;
+    }
+
+    .split:nth-child(2n+1){
+        float: right;
+    }
+    
+    .slide img.olTileImage {
+        margin: 0;
+        max-width: inherit;
+    }
+    div.caption {
+        font-size: 2.25em;
+        text-align: center;
+    }
+
+    pre{
+        color: #0099ff;
+        font-size:0.75em;
+    }
+
+    .olControlAttribution {
+        bottom: 3px;
+    }
+    </style>
+
+  <script src="externals/deckjs/modernizr.custom.js"></script>
+</head>
+
+<body>
+
+<article class="deck-container">
+   <div class="slide" id="frontpage">
+       <h1>Real Time Analytics with Akka & MongoDB</h1>
+      <h2>Tech Talk</h2>
+       <ul class="authors">
+           <li>Juan Marin<br>January 2013</li>
+       </ul>
+   </div>
+
+  <section class="slide" id="whats-real-time">
+      <h1>What is real time?</h1>
+  </section>
+  
+  <section class="slide" id="its-relative">
+      <h1>It's all relative<br><img style="position:relative;top:100px;" src="img/back_to_future.jpg"</h1>
+  </section>
+
+  <section class="slide" id="realtime-agree">
+    <div style="position:relative;top:250px;left:10%">
+      <h3>But we can probably agree:</h3>
+      <p class="subtle">
+      <ul>
+        <li>Reactive</li>
+	<li>Operational deadlines --> available "soon"</li>
+	<li>Order of magnitude ~ milliseconds</li>
+      </ul>
+      </p>
+    </div>
+  </section>  
+
+  <section class="slide" id="be-fast">
+      <h1>Being fast is important<img style="position:relative;top:100px;" src="img/shark_attack.jpg"/></h1>     
+  </section>
+
+  <section class="slide" id="big-data">
+    <div>
+      <div>
+      <h1 style="position:relative;top:400px;">Big Data Analytics</h1>
+      <h3 style="position:relative;top:402px;text-align:center">I had to write that because it sounds cool</h3>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="but-seriously">
+   <div>
+    <h1 style="position:relative;top:100px;">But seriously...</h1>
+    <div style="position:relative;top:150px;text-align:left">
+      <p class="subtle">
+      <ul>
+        <li>90% of total data volume in the history of mankind has been produced in the last 2 years</li>
+	<li>As of late 2012, "Big Data" usually describes data sets from several dozen terabytes to petabytes</li>
+	<li>Guess What? A lot of that data is geospatial...</li>
+      </ul>
+      </p>
+    </div>
+   </div>
+  </section>  
+
+  <section class="slide" id="sdss">
+    <h1 style="position:relative;top:100px;">Big Data</h1>
+    <div style="position:absolute;top:20%;>"<p class="subtle">
+      <h3>When the Sloan Digital Sky Survey (SDSS) began collecting astronomical data in 2000, it collected more information in the first weeks of operation than in the whole history of astronomy. Total amount ~ 140TB</h3>
+    </p>
+    </div>
+    <img style="position:absolute;top:35%;left:35%" src="img/orangespider.thumb.jpg"/>				    
+  </section>
+
+  <section class="slide" id="lsst">
+    <h1 style="position:relative;top:100px;">Bigger Data</h1>
+    <div style="position:absolute;top:20%;>"<p class="subtle">
+      <h4>When the Large Synoptic Survey Telescope (LSST), successor to SDSS, comes online in 2016 it is anticipated to acquire that amount of data every 5 days</h4>
+    </p>
+    </div>
+    <img style="position:absolute;top:40%;left:30%" src="img/lsst.jpg"/>
+
+  </section>
+
+  <section class="slide" id="big-data-geo">
+    <h1 style="position:absolute;top:20%;">It happens in our field too</h1>
+    <div style="position:relative;top:250px;left:5%">
+      <p class="subtle">
+	<b>FCC's Broadband Map</b>, first 24 hours:
+      <ul>
+        <li>Total hits:158,123,884</li>
+	<li>Hits served by cache: 141,068,348 (89.21%)</li>
+	<li>Total data transferred: 863 GB</li>
+	<li>Peak requests per second: 8,970</li>
+	<li>Average requests per second: 1,095</li>
+	<li>Unique visitors, first 10 hours: ~500,000</li>
+      </ul>
+      </p>
+    </div>
+
+  </section>
+
+  <section class="slide" id="">
+    <h1>How can we derive real time statistics from request data?</h1>
+  </section>
+
+  <section class="slide" id="">
+    <h1 style="position:absolute;top:100px;">We will need:</h1>
+    <div style="position:relative;top:130px;left:170px;">
+     <p class="subtle"> 
+      <ul>
+        <li>A fast way to persist raw request data for further analysis</li>
+        <li>A fast way to process (aggregate) the incoming stream of data</li>
+        <li>A fast way to query and deliver information, both historic and real time</li>
+      </ul>
+      <h3 style="position:relative;left:125px;">Akka and MongoDB is a possible solution</h3>
+     </p> 
+    </div> 
+  </section>
+
+  <section class="slide" id="akka">
+    <img style="position:absolute;top:10%;left:40%" src="img/akka_logo.png"/>
+    <h3 style="position:absolute;top:40%;text-align:center">Akka is a toolkit and runtime for building highly concurrent, distributed, and fault tolerant event-driven applications on the JVM</h3>
+  </section>
+
+  <section class="slide" id="concurrency">
+    <div style="position:relative;top:100px;">
+    <h1 style="position:relative;top:200px;">Concurrency<img style="position:relative;top:50px;" src="img/smith_many.jpeg"/></h1>
+    <h3 style="position:relative;top:100px;text-align:center">Hard to deal with</h3>
+   </div>
+  </section>
+
+  <section class="slide" id="actors">
+    <div style="position:relative;top:100px;">
+    <h1 style="position:relative;top:100px;">Akka has actors<img style="position:relative;top:50px;" src="img/clooney.jpeg"/></h1>
+    <h3 style="position:relative;top:50%;text-align:center">Actors are cool</h3>
+   </div>
+  </section>
+
+  <section class="slide" id="akka-actors">
+    <div>
+    <h1 style="position:relative;top:100px">Akka Actors</h1>
+    <h3 style="position:relative;top:80px">Actors are objects which encapsulate state and behavior, they communicate exclusively by exchanging messages which are placed into the recipient's mailbox</h3>
+    
+    <pre style="position:relative;top:140px;">
+      public class Greeting implements Serializable {
+        public final String who;
+        public Greeting(String who) { this.who = who; }
+      }
+      
+      public class GreetingActor extends UntypedActor {
+        LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+      
+        public void onReceive(Object message) throws Exception {
+          if (message instanceof Greeting)
+            log.info("Hello " + ((Greeting) message).who);
+        }
+      }
+      
+      ActorSystem system = ActorSystem.create("MySystem");
+      ActorRef greeter = system.actorOf(new Props(GreetingActor.class), "greeter");
+      greeter.tell(new Greeting("Charlie Parker"));</pre>
+
+  </section>
+
+  <section class="slide" id="actors-scala">
+    <div>
+    <h1 style="position:relative;top:100px;">In Scala too (*)<img style="position:relative;top:20px;;" src="img/scala_logo.jpeg"/></h1>
+    <pre style="position:relative;top:30px;">
+      case class Greeting(who: String)
+      
+      class GreetingActor extends Actor with ActorLogging {
+        def receive = {
+          case Greeting(who) ⇒ log.info("Hello " + who)
+        }
+      }
+      
+      val system = ActorSystem("MySystem")
+      val greeter = system.actorOf(Props[GreetingActor], name = "greeter")
+      greeter ! Greeting("Charlie Parker")
+
+    </pre>
+    <h3 style="position:relative;top:65px;text-align:center">(*) Which is the language you should be using for this stuff</h3>
+    </div>
+  </section>
+
+  <section class="slide" id="why-actors">
+    <div style="position:relative;top:200px;">
+    <h1 style="position:relative;top:100px;">Why Actors?</h1>
+    <h3 style="position:relative;top:100px;;text-align:center">Message passing style concurrency<br>Asynchronous, event driven programming model</h3>
+    <p class="subtle" style="position:relative;top:160px;text-align:center;">Oh, and they are tiny (2.7 million / GB of RAM)</p>  
+    </div>
+  </section>
+
+  <section class="slide" id="akka-distributed">
+    <div>
+    <h1 style="position:relative;top:100px;">Akka is distributed</h1>
+    <h3 style="position:relative;top:100px;;text-align:center">Location Transparency<br>Designed for distribution, local deployment is an optimization</h3>
+    <pre style="position:relative;top:150px;">
+    akka {
+      actor {
+        provider = "akka.remote.RemoteActorRefProvider"
+      }
+      remote {
+        transport = "akka.remote.netty.NettyRemoteTransport"
+        netty {
+          hostname = "127.0.0.1"
+          port = 2552
+        }
+      }
+   }
+    </pre>
+  </div>
+  </section>
+
+  <section class="slide" id="let-it-crash">
+    <div>
+    <h1 style="position:relative;top:100px;">Let it Crash</h1>
+    <img style="position:relative;top:100px;" src="img/koshinage.jpg"/>
+    <p class="subtle" style="position:relative;top:100px;text-align:center;font-size:0.75em">By the way, this Aikido technique is called Koshinage</p>  
+  </div>
+  </section>
+
+  <section class="slide" id="fault-tolerance">
+    <h1 style="position:absolute;top:20%">Fault Tolerance</h1>
+    <h3 style="position:absolute;top:30%;text-align:center"><b>Supervision Hierarchy</b> --> Every actor has a parent. Parents take care of children, do something when they misbehave (stop, restart, etc.)<br>Encourage few top level actors (dhildren of ActorSystem), create your own actors as children of other actors</h3>
+  </section>
+
+  <section class="slide" id="futures">
+    <div>
+    <h1 style="position:relative;top:100px;">Futures</h1>
+    <img style="position:relative;top:100px;" src="img/futures.jpg"/>
+    </div>
+  </section>
+
+  <section class="slide" id="akka-futures">
+    <div>
+    <h1 style="position:relative;top:200px;">Akka Futures</h1>
+    <h3 style="position:relative;top:200px;;text-align:center">"Data structures to retrieve the result of a concurrent operation. Results can be retrieved synchronously or asynchronously"<br>Higher abstraction than Java Futures, but uses java.util.concurrency under the hood<br>This is where you really want to use Scala<br>Seriously</h3>
+    </div>
+  </section>
+
+  <section class="slide" id="future-composition">
+    <div>
+    <h1 style="position:relative;top:100px;">Futures compose</h1>
+    <pre style="position:relative;top:100px;">
+      List&lt;Future&lt;List&lt;RequestStats&gt;&gt;&gt; futures = new ArrayList&lt;Future&lt;List&lt;RequestStats&gt;&gt;&gt;();
+      ExecutionContext ec = getContext().system().dispatcher();
+      futures.add(future(new ServiceStatsProcessor(payload), ec));
+      futures.add(future(new LayerStatsProcessor(payload), ec));
+      futures.add(future(new GeoStatsProcessor(payload), ec));
+      futures.add(future(new ReferrerProcessor(payload), ec));
+      futures.add(future(new IpStatsProcessor(payload), ec));
+
+      // compose a sequence of the futures
+      Future&lt;Iterable&lt;List&lt;RequestStats&gt;&gt;&gt; futuresSequence = sequence(futures, ec);
+
+      // block until the futures come back
+      log.debug("Processing messages");
+      Iterable&lt;List&lt;RequestStats&gt;&gt; results = futuresSequence.result(
+         Duration.create(30, TimeUnit.SECONDS), null);
+      log.debug("Finished Processing messages");
+    </pre>
+  </div>		
+  </section>
+
+  <section class="slide" id="camel-integration">
+    <div>
+    <h1 style="position:relative;top:100px;">Apache Camel Integration</h1>
+    <pre style="position:relative;top:50px;">
+ public class HttpConsumer extends UntypedConsumerActor implements Consumer {
+    @Override
+    public void onReceive(Object obj) throws Exception {
+        if (obj instanceof CamelMessage) {
+            CamelMessage camelMessage = (CamelMessage) obj;
+            String json = camelMessage.withBodyAs(String.class, getCamelContext())
+                    .body()
+                    .toString();
+            Payload payload = mapper.readValue(json, Payload.class);
+            if (!messageValidator.isValid(payload))
+                throw new Exception("Payload is not valid");
+            log.debug("Message received and validated: " + payload);
+            getContext().system().eventStream().publish(payload);
+            getSender().tell("OK", getSelf());
+        }
+    }
+}
+    </pre>  
+  </div>
+  </section>
+
+  <section class="slide" id="mongodb">
+    <div style="position:relative;top:250px;">
+    <h1 style="position:relative;top:100px;">Storage</h1><img style="position:relative;top:50px;" src="img/mongodb_logo.png">
+    </div>
+  </section>
+
+  <section class="slide" id="mongodb-features">
+    <div style="position:relative;top:250px;">
+      <h1 style="position:relative;top:50px;">Some nice features:</h1>
+      <p class="subtle">
+      <ul>
+        <li>Document-oriented storage, flexible schemas (NoSQL)</li>
+	<li>Very fast performance (less consistent than a RDBMS)</li>
+	<li>Replication and High Availability</li>
+	<li>Auto-Sharding: "easy" to scale horizontally on cheap hardware</li>
+	<li>Map/Reduce: very powerful analysis and aggregation capabilities</li>
+	<li>Some Geospatial support (pretty crude vs. PostGIS, but improving)</li>
+	<li><h3>Fast In-Place Updates</h3></li>
+      </ul>
+      </p>
+    </div>
+  </section>
+
+
+  <section class="slide" id="mongodb-raw-document">
+    <div>
+    <h3 style="position:relative;top:20px;">Let's take a look at this document</h3>
+    <pre style="position:relative;top:50px;font-size:0.75em">
+      > db.message.find().limit(1).next()
+{
+      "_id" : ObjectId("50f56c09a0ee0faee89ac02e"),
+      "id" : 1,
+      "url" : "/sf/wms?REQUEST=GetFeatureInfo&EXCEPTIONS=application/vnd.ogc.se_xml&BBOX=580603.926345,4908503.524255,617593.971633,4932489.256747&SERVICE=WMS&INFO_FORMAT=text/html&QUERY_LAYERS=sf:archsites&FEATURE_COUNT=50&Layers=sf:archsites&WIDTH=512&HEIGHT=332&format=image/png&styles=&srs=EPSG:26713&version=1.1.1&x=303&y=211",
+      "http_referer" : "http://console.dev.opengeo.org/geoserver/sf/wms?service=WMS&version=1.1.0&request=GetMap&layers=sf:archsites&styles=&bbox=589851.4376666048,4914490.882968263,608346.4603107043,4926501.8980334345&width=512&height=332&srs=EPSG:26713&format=application/openlayers",
+      "request_method" : "GET",
+      "request_length" : 0,
+      "request_content_type" : null,
+      "response_status" : 200,
+      "response_length" : 938,
+      "response_content_type" : "text/html",
+      "category" : "OWS",
+      "service" : "WMS",
+      "operation" : "GetFeatureInfo",
+      "sub_operation" : null,
+      "ows_version" : "1.1.1",
+      "start_time" : 1353026628,
+      "duration" : 652,
+      "server_host" : "console.dev.opengeo.org",
+      "internal_server_host" : "console",
+      "remote_address" : "208.120.178.170",
+      "remote_host" : "user-387hcla.cable.mindspring.com",
+      "remote_user_agent" : "Mozilla/5.0 (X11; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0",
+      "remote_user" : null,
+      "remote_longitude" : -73.9319000244141,
+      "remote_latitude" : 40.7610931396484,
+      "bbox" : null,
+      "error" : null,
+      "resources" : [ ],
+      "mem_usage" : -1,
+      "mem_total" : -1,
+      "load" : -1,
+      "date" : ISODate("2012-11-16T00:43:48Z"),
+      "api_key" : "opengeo_demo"
+}
+
+    </pre>
+   </div>
+  </section>
+
+  <section class="slide" id="mongodb-aggregate-document">
+   <div>
+    <h3 style="position:relative;top:20px;">We can aggregate them this way</h3>
+    <pre style="position:relative;top:50px;font-size:0.75em">
+      > db.request_hour.find().limit(1).next()
+      {
+          "_id" : "opengeo_demo_1353024000",
+          "api_key" : "opengeo_demo",
+          "date" : NumberLong(1353024000),
+          "error_count" : 0,
+          "ip" : {
+              "208_120_178_170" : {
+              "error_count" : 0,
+              "request_count" : 7,
+              "response_size" : 6489,
+              "response_time" : 1946
+	  }
+	  },
+          "location" : {
+              "dr5r" : {
+	      "request_count" : 7,
+	      "request_error" : 0,
+	      "response_size" : 6489,
+	      "response_time" : 1946
+	  }
+	  },
+	  "referrer" : {
+	      "console_dev_opengeo_org" : {
+	      "error_count" : 0,
+	      "request_count" : 7,
+	      "response_size" : 6489,
+	      "response_time" : 1946
+	  }
+	  },
+	  "request_count" : 7,
+	  "response_size" : 6489,
+	  "response_time" : 1946,
+	  "service" : {
+	      "wms" : {
+	          "error_count" : 0,
+		  "request_count" : 7,
+		  "response_size" : 6489,
+		  "response_time" : 1946
+	       }
+	  }
+      }
+    </pre>
+   </div>
+  </section>
+
+  <section class="slide" id="mongodb-query">
+    <h3 style="position:relative;top:200px;text-align:center">So that queries become this easy</h3>
+    <pre style="position:relative;top:250px;text-align:center">
+      db.request_hour.find({ "date" : { "$gte" : 1352980800 , "$lte" : 1353168000} , "api_key" : "opengeo_demo"})
+    </pre>
+  </section>
+
+  <section class="slide" id="mongodb-upsert">
+   <div>
+    <h1 style="position:relative;top:140px;">All this is possible thanks to the Upsert with Increment operation</h1>
+    <pre style="position:relative;top:70px;">
+     db.request_hour.update(
+      {_id: "opengeo_demo_1234567890"},
+      { "$set" : { 
+              "date" : 1352911141 ,
+              "api_key" : "1234567890"} ,
+              "$inc" : { 
+                       "request_count" : 1 ,
+                       "error_count" : 0 , 
+                       "response_size" : 3826 , 
+                       "response_time" : 68 , 
+                       "service.wms.request_count" : 1 , 
+                       "service.wms.error_count" : 0 , 
+                       "service.wms.response_size" : 3826 , 
+                       "service.wms.response_time" : 68
+               }
+     }, 
+     { upsert: true } 
+    }
+    </pre>
+   </div>
+  </section>
+
+  <section class="slide" id="how-good">
+    <h1>So, how well does it work?</h1>
+  </section>
+
+  <section class="slide" id="">
+    <div>
+    <h1 style="position:relative;top:50px;">OpenGeo Console</h1>
+    <ul style="position:relative;top:15px;">
+     <li>1.5 million requests aggregated on the fly, in 1.5 months (OpenGeo Suite Demo Server)</li>
+     <li>Console Dev server is a VM with 2GB of RAM, hosting both the application and MongoDB</li>
+     <li>No optimizations to Akka or MongoDB deployment yet (but will be needed)</li>
+     <li>Very fast development (but we should have gone with Scala)</li>
+    </ul>
+    <img src="img/Console.png"
+    </div>
+  </section>
+
+  <section class="slide" id="questions">
+    <h1>Questions?</h1>
+  </section>
+
+  <form action="." method="get" class="goto-form">
+       <label for="goto-slide">Go to slide:</label>
+
+       <input type="number" name="slidenum" id="goto-slide">
+       <input type="submit" value="Go">
+  </form>
+
+
+<script src="externals/deckjs/jquery-1.7.2.min.js"></script>
+<script src="externals/deckjs/core/deck.core.js"></script>
+<script src="externals/deckjs/extensions/navigation/deck.navigation.js"></script>
+<script src="externals/deckjs/extensions/goto/deck.goto.js"></script>
+<script src="externals/deckjs/extensions/hash/deck.hash.js"></script>
+
+<script>
+    $(function() {
+        $.deck(".slide");
+    });
+
+</script>
+
+</article>
+</body>
+
+</html>
